@@ -1,3 +1,5 @@
 public interface Boleto {
-    void getDetalles();
+    void generarBoleto();
+    double calcularPrecio();
+    String obtenerDetalles();
 }
