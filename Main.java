@@ -10,7 +10,7 @@ import PatronObserver.GestorNotificaciones;
 public class Main {
 
     public static void main(String[] args) {
-       Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         GestorNotificaciones gestor = new GestorNotificaciones();
         Compra compra = new Compra(gestor);
 
@@ -19,7 +19,8 @@ public class Main {
             System.out.println("1. Agregar Canal (Email, SMS, App)");
             System.out.println("2. Eliminar Canal");
             System.out.println("3. Actualizar estado de la compra");
-            System.out.println("4. Salir");
+            System.out.println("4. Crear Boleto");
+            System.out.println("5. Salir");
             System.out.print("Selecciona una opción: ");
             int opcion = scanner.nextInt();
             scanner.nextLine();  
@@ -95,12 +96,43 @@ public class Main {
                     break;
 
                 case 4:
-                    System.out.println("Salio del programa");
+                    System.out.println("Selecciona el tipo de boleto a crear:");
+                    System.out.println("1. Boleto General");
+                    System.out.println("2. Boleto VIP");
+                    System.out.println("3. Boleto Reservado");
+                    System.out.print("Selecciona una opción: ");
+                    int tipoBoleto = scanner.nextInt();
+                    scanner.nextLine();
+
+                    BoletoFactory factory = null;
+
+                    switch (tipoBoleto) {
+                        case 1:
+                            factory = new BoletoGeneralFactory();
+                            break;
+                        case 2:
+                            factory = new BoletoVIPFactory();
+                            break;
+                        case 3:
+                            factory = new BoletoReservadoFactory();
+                            break;
+                        default:
+                            System.out.println("Opción no válida.");
+                            break;
+                    }
+
+                    if (factory != null) {
+                        factory.procesarBoleto();
+                    }
+                    break;
+
+                case 5:
+                    System.out.println("Salió del programa");
                     scanner.close();
                     return;
 
                 default:
-                    System.out.println("Opcion no valida.");
+                    System.out.println("Opción no válida.");
                     break;
             }
         }
