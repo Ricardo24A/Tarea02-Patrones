@@ -1,3 +1,4 @@
+package PatronFactoryMethod;
 public class BoletoVIP implements Boleto {
     private double precio;
     private String detalles;
