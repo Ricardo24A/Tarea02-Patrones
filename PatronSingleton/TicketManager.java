@@ -11,8 +11,13 @@ public class TicketManager {
         return instance;
     }
 
-    public void reservarBoleto(Boleto b){
-        System.out.println("Boleto reservado. \nPrecio:"+b.calcularPrecio()+"\nDetalles:"+b.obtenerDetalles());
+    public void reservarBoleto(Boleto b,String metodoPago){
+        if(metodoPago.equalsIgnoreCase("Credit Cart") || metodoPago.equalsIgnoreCase("Debit Cart")){
+            System.out.println("Boleto reservado. \nPrecio:"+b.calcularPrecio()+"\nDetalles:"+b.obtenerDetalles());
+        }
+        else{
+            System.out.println("No se pudo reservar el boleto. Error.");
+        }
     }
 
     public void venderBoleto(Boleto b,double valor){
