@@ -7,7 +7,7 @@ import PatronObserver.CanalSMS;
 import PatronObserver.Compra;
 import PatronObserver.GestorNotificaciones;
 
-public class Main {
+public class Sistema {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
