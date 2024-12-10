@@ -21,8 +21,8 @@ public class TicketManager {
     }
 
     public void venderBoleto(Boleto b,double valor){
-        b.generarBoleto();
         if(valor >= b.calcularPrecio()){
+            b.generarBoleto();
             System.out.println("Boleto vendido.");
         }
         else{
