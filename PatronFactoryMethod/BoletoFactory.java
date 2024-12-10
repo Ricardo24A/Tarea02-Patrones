@@ -1,3 +1,4 @@
+package PatronFactoryMethod;
 public abstract class BoletoFactory {
     
     public abstract Boleto crearBoleto();

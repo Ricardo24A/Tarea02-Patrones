@@ -1,3 +1,4 @@
+package PatronFactoryMethod;
 public class BoletoGeneralFactory extends BoletoFactory {
     @Override
     public Boleto crearBoleto() {

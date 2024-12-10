@@ -1,11 +1,8 @@
 import java.util.Scanner;
 
-import PatronObserver.CanalApp;
-import PatronObserver.CanalEmail;
-import PatronObserver.CanalNotificator;
-import PatronObserver.CanalSMS;
-import PatronObserver.Compra;
-import PatronObserver.GestorNotificaciones;
+import PatronFactoryMethod.*;
+import PatronObserver.*;
+import PatronSingleton.TicketManager;
 
 public class Sistema {
 
@@ -19,7 +16,7 @@ public class Sistema {
             System.out.println("1. Agregar Canal (Email, SMS, App)");
             System.out.println("2. Eliminar Canal");
             System.out.println("3. Actualizar estado de la compra");
-            System.out.println("4. Crear Boleto");
+            System.out.println("4. Crear y gestionar Boleto");
             System.out.println("5. Salir");
             System.out.print("Selecciona una opción: ");
             int opcion = scanner.nextInt();
@@ -105,16 +102,20 @@ public class Sistema {
                     scanner.nextLine();
 
                     BoletoFactory factory = null;
+                    Boleto boleto = null;
 
                     switch (tipoBoleto) {
                         case 1:
                             factory = new BoletoGeneralFactory();
+                            boleto = factory.crearBoleto();
                             break;
                         case 2:
                             factory = new BoletoVIPFactory();
+                            boleto = factory.crearBoleto();
                             break;
                         case 3:
                             factory = new BoletoReservadoFactory();
+                            boleto = factory.crearBoleto();
                             break;
                         default:
                             System.out.println("Opción no válida.");
@@ -123,9 +124,22 @@ public class Sistema {
 
                     if (factory != null) {
                         factory.procesarBoleto();
+                        TicketManager manager = TicketManager.getInstance();
+                        System.out.println("___________________________________________________________________________");
+                        System.out.println("Eliga una opción: \n1. Reservar Boleto \n2. Comprar boleto");
+                        int opcion2 = scanner.nextInt();
+                        scanner.nextLine();
+                        if(opcion2 == 1) manager.reservarBoleto(boleto);
+
+                        if(opcion2 == 2) {
+                            System.out.println("Precio: "+boleto.calcularPrecio());
+                            System.out.println("Ingrese el monto a cancelar:");
+                            int monto = scanner.nextInt();
+                            scanner.nextLine();
+                            manager.venderBoleto(boleto, monto);
+                        }
                     }
                     break;
-
                 case 5:
                     System.out.println("Salió del programa");
                     scanner.close();

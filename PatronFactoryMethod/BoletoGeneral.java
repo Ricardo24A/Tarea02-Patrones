@@ -1,15 +1,16 @@
-public class BoletoReservado implements Boleto {
+package PatronFactoryMethod;
+public class BoletoGeneral implements Boleto {
     private double precio;
     private String detalles;
 
-    public BoletoReservado() {
-        this.precio = 100.0;  // Ejemplo de precio
-        this.detalles = "Boleto Reservado - Asiento asignado";
+    public BoletoGeneral() {
+        this.precio = 50.0;
+        this.detalles = "Boleto General";
     }
 
     @Override
     public void generarBoleto() {
-        System.out.println("Generando boleto reservado...");
+        System.out.println("Generando boleto general...");
     }
 
     @Override
