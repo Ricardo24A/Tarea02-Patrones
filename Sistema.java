@@ -129,7 +129,7 @@ public class Sistema {
                         System.out.println("Eliga una opción: \n1. Reservar Boleto \n2. Comprar boleto");
                         int opcion2 = scanner.nextInt();
                         scanner.nextLine();
-                        if(opcion2 == 1) manager.reservarBoleto(boleto);
+                        if(opcion2 == 1) manager.reservarBoleto(boleto,"Paypal");
 
                         if(opcion2 == 2) {
                             System.out.println("Precio: "+boleto.calcularPrecio());
