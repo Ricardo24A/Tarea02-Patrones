@@ -3,30 +3,32 @@ package PatronSingleton;
 import PatronFactoryMethod.Boleto;
 
 public class TicketManager {
-    private static TicketManager instance = new TicketManager();
+    private static TicketManager instance;
 
-    private TicketManager(){};
+    private TicketManager() {
+    }
 
-    public static TicketManager getInstance(){
+    public static TicketManager getInstance() {
+        if (instance == null) {
+            instance = new TicketManager();
+        }
         return instance;
     }
 
-    public void reservarBoleto(Boleto b,String metodoPago){
-        if(metodoPago.equalsIgnoreCase("Credit Cart") || metodoPago.equalsIgnoreCase("Debit Cart")){
-            System.out.println("Boleto reservado. \nPrecio:"+b.calcularPrecio()+"\nDetalles:"+b.obtenerDetalles());
-        }
-        else{
-            System.out.println("No se pudo reservar el boleto. Error.");
-        }
+    public void reservarBoleto(Boleto boleto, String metodoPago) {
+        System.out.println("Boleto reservado con " + metodoPago);
+        System.out.println("Detalles del boleto: " + boleto.obtenerDetalles());
     }
 
-    public void venderBoleto(Boleto b,double valor){
-        if(valor >= b.calcularPrecio()){
-            b.generarBoleto();
-            System.out.println("Boleto vendido.");
-        }
-        else{
-            System.out.println("Venta no realizada. Valor insuficiente.");
+    public void venderBoleto(Boleto boleto, double montoPagado) {
+        if (montoPagado >= boleto.calcularPrecio()) {
+            System.out.println("Boleto vendido exitosamente.");
+            double cambio = montoPagado - boleto.calcularPrecio();
+            if (cambio > 0) {
+                System.out.println("Cambio: " + cambio);
+            }
+        } else {
+            System.out.println("Fondos insuficientes para comprar el boleto.");
         }
     }
 }
