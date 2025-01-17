@@ -78,7 +78,7 @@ public class TicketBeatMain {
                     }
                     break;
 
-                case 5:
+                    case 5:
                     if (boletoSeleccionado == null) {
                         System.out.println("No hay boleto seleccionado.");
                     } else {
@@ -90,18 +90,42 @@ public class TicketBeatMain {
                         System.out.print("Método de pago para comprar: ");
                         int mp2 = leerEntero(scanner);
                         String metodoPago2 = metodoPagoString(mp2);
+                
+                        if (mp2 == 1) {
+                            System.out.print("Ingrese el número de tarjeta: ");
+                            String numeroTarjeta = scanner.nextLine();
+                            System.out.print("Ingrese el nombre del titular: ");
+                            String titular = scanner.nextLine();
+                            System.out.print("Ingrese la fecha de expiración (MM/AA): ");
+                            String fechaExpiracion = scanner.nextLine();
+                            System.out.print("Ingrese el CVV: ");
+                            String cvv = scanner.nextLine();
+                        } else if (mp2 == 2) {
+                            System.out.print("Ingrese el correo electrónico asociado a PayPal: ");
+                            String correoPayPal = scanner.nextLine();
+                        } else if (mp2 == 3) {
+                            System.out.print("Ingrese el número de cuenta bancaria: ");
+                            String numeroCuenta = scanner.nextLine();
+                            System.out.print("Ingrese el nombre del banco: ");
+                            String nombreBanco = scanner.nextLine();
+                        }
+                
                         System.out.print("Monto con el que pagas: ");
                         double monto = leerDouble(scanner);
                         manager.venderBoleto(boletoSeleccionado, monto);
+                        
                         if (monto >= precio) {
                             estadoCompra = "Comprado con " + metodoPago2;
                             compra.actualizarEstado(estadoCompra);
+                            System.out.println("Compra exitosa.");
                         } else {
                             estadoCompra = "Compra Fallida - Fondos Insuficientes";
                             compra.actualizarEstado(estadoCompra);
+                            System.out.println("Compra fallida: Fondos insuficientes.");
                         }
                     }
                     break;
+                
 
                 case 6:
                     System.out.print("Tipo de incidente (pago, boletos, otro): ");
