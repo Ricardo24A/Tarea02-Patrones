@@ -116,79 +116,14 @@ public class TicketBeatMenu {
     }
 
     private void agregarCanal(Scanner scanner, GestorNotificaciones gestor) {
-        System.out.println("1. Email");
-        System.out.println("2. SMS");
-        System.out.println("3. App");
-        System.out.print("Canal: ");
-        int tipo = leerEntero(scanner);
-        scanner.nextLine();
-
-        CanalNotificator canal = null;
-
-        switch (tipo) {
-            case 1:
-                System.out.print("Por favor ingresa tu correo electronico: ");
-                String email = scanner.nextLine();
-                canal = new CanalEmail(email);
-                break;
-            case 2:
-                System.out.print("Por favor ingresa tu numero de telefono: ");
-                String telefono = scanner.nextLine();
-                canal = new CanalSMS(telefono);
-                break;
-            case 3:
-                System.out.print("Por favor ingresa tu usuario de la app: ");
-                String user = scanner.nextLine();
-                canal = new CanalApp(user);
-                break;
-            default:
-                System.out.println("Opcion no valida.");
-                break;
-        }
-
-        if (canal != null) {
-            gestor.agregarCanal(canal);
-            System.out.println("Canal agregado con exito.");
-        }
+        new AgregarCanal().gestionarCanal(scanner, gestor);
     }
-
+    
     private void eliminarCanal(Scanner scanner, GestorNotificaciones gestor) {
-        System.out.println("1. Email");
-        System.out.println("2. SMS");
-        System.out.println("3. App");
-        System.out.print("Canal a Eliminar: ");
-        int tipo = leerEntero(scanner);
-        scanner.nextLine();
-
-        CanalNotificator canalAEliminar = null;
-
-        switch (tipo) {
-            case 1:
-                System.out.print("Por favor ingresa el correo electronico a eliminar: ");
-                String email = scanner.nextLine();
-                canalAEliminar = new CanalEmail(email);
-                break;
-            case 2:
-                System.out.print("Por favor ingresa el numero de telefono a eliminar: ");
-                String tel = scanner.nextLine();
-                canalAEliminar = new CanalSMS(tel);
-                break;
-            case 3:
-                System.out.print("Por favor ingresa el usuario de la app a eliminar: ");
-                String user = scanner.nextLine();
-                canalAEliminar = new CanalApp(user);
-                break;
-            default:
-                System.out.println("Opcion no valida.");
-                break;
-        }
-
-        if (canalAEliminar != null) {
-            gestor.eliminarCanal(canalAEliminar);
-            System.out.println("Canal eliminado.");
-        }
+        new EliminarCanal().gestionarCanal(scanner, gestor);
     }
-
+    
+    
     private void seleccionarEvento(Scanner scanner, List<String> eventos) {
         System.out.println("\nEVENTOS DISPONIBLES:");
         for (String e : eventos) {
