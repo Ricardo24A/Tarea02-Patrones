@@ -239,51 +239,23 @@ public class TicketBeatMenu {
     }
 
     private void pagarBoleto(Scanner scanner, TicketManager manager, Compra compra, Boleto boleto) {
-        double precio = boleto.calcularPrecio();
-        System.out.println("Precio del Boleto: " + precio);
-        System.out.println("1. Tarjeta de Credito");
+        System.out.println("Seleccione método de pago:");
+        System.out.println("1. Tarjeta de Crédito");
         System.out.println("2. PayPal");
         System.out.println("3. Transferencia");
-        System.out.print("Metodo de pago para comprar: ");
-        int mp2 = leerEntero(scanner);
+    
+        int opcion = leerEntero(scanner);
         scanner.nextLine();
-
-        MetodoPago metodo = MetodoPago.parseOpcion(mp2);
-
-        if (mp2 == 1) {
-            System.out.print("Ingrese el numero de tarjeta: ");
-            String numeroTarjeta = scanner.nextLine();
-            System.out.print("Ingrese el nombre del titular: ");
-            String titular = scanner.nextLine();
-            System.out.print("Ingrese la fecha de expiracion (MM/AA): ");
-            String fechaExpiracion = scanner.nextLine();
-            System.out.print("Ingrese el CVV: ");
-            String cvv = scanner.nextLine();
-        } else if (mp2 == 2) {
-            System.out.print("Ingrese el correo electronico asociado a PayPal: ");
-            String correoPayPal = scanner.nextLine();
-        } else if (mp2 == 3) {
-            System.out.print("Ingrese el numero de cuenta bancaria: ");
-            String numeroCuenta = scanner.nextLine();
-            System.out.print("Ingrese el nombre del banco: ");
-            String nombreBanco = scanner.nextLine();
-        }
-
-        System.out.print("Monto con el que pagas: ");
-        double monto = leerDouble(scanner);
-
-        manager.venderBoleto(boleto, monto);
-
-        if (monto >= precio) {
-            String estadoCompra = "Comprado con " + metodo.getNombre();
-            compra.actualizarEstado(estadoCompra);
-            System.out.println("Compra exitosa.");
+    
+        MetodoPago metodo = MetodoPago.parseOpcion(opcion);
+    
+        if (metodo != null) {
+            metodo.procesarPago(scanner, manager, compra, boleto);
         } else {
-            String estadoCompra = "Compra Fallida - Fondos Insuficientes";
-            compra.actualizarEstado(estadoCompra);
-            System.out.println("Compra fallida: Fondos insuficientes.");
+            System.out.println("Opción de pago no válida.");
         }
     }
+    
 
     private void reportarIncidente(Scanner scanner, ManejadorAgente agenteSoporte) {
         System.out.print("Tipo de incidente (pago, boletos, otro): ");
