@@ -1,6 +1,7 @@
 package PatronSingleton;
 
 import PatronFactoryMethod.Boleto;
+import PatronObserver.Compra;
 import Refactoring.ReservaDatos;
 
 public class TicketManager {
@@ -24,11 +25,14 @@ public class TicketManager {
     datos.getCompra().actualizarEstado(estadoCompra);
 }
 
-
-    public void venderBoleto(Boleto boleto, double montoPagado) {
-        if (montoPagado >= boleto.calcularPrecio()) {
+    public void venderBoleto(Boleto boleto, double montoPagado, Compra compra, MetodoPago metodo) {
+        double precio = boleto.calcularPrecio();
+        if (montoPagado >= precio) {
+            String estadoCompra = "Comprado con " + metodo.getNombre();
+            compra.actualizarEstado(estadoCompra);
             System.out.println("Boleto vendido exitosamente.");
-            double cambio = montoPagado - boleto.calcularPrecio();
+
+            double cambio = montoPagado - precio;
             if (cambio > 0) {
                 System.out.println("Cambio: " + cambio);
             }

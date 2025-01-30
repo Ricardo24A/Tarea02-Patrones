@@ -175,11 +175,15 @@ public class TicketBeatMenu {
         MetodoPago metodo = MetodoPago.parseOpcion(opcion);
     
         if (metodo != null) {
-            metodo.procesarPago(scanner, manager, compra, boleto);
+            System.out.print("Monto con el que pagas: ");
+            double monto = leerDouble(scanner);
+    
+            manager.venderBoleto(boleto, monto, compra, metodo);
         } else {
             System.out.println("Opción de pago no válida.");
         }
     }
+    
     
 
     private void reportarIncidente(Scanner scanner, ManejadorAgente agenteSoporte) {
