@@ -25,19 +25,25 @@ public class TicketManager {
     datos.getCompra().actualizarEstado(estadoCompra);
 }
 
-    public void venderBoleto(Boleto boleto, double montoPagado, Compra compra, MetodoPago metodo) {
-        double precio = boleto.calcularPrecio();
-        if (montoPagado >= precio) {
-            String estadoCompra = "Comprado con " + metodo.getNombre();
-            compra.actualizarEstado(estadoCompra);
-            System.out.println("Boleto vendido exitosamente.");
-
-            double cambio = montoPagado - precio;
-            if (cambio > 0) {
-                System.out.println("Cambio: " + cambio);
-            }
-        } else {
-            System.out.println("Fondos insuficientes para comprar el boleto.");
-        }
+public void venderBoleto(Boleto boleto, double montoPagado, Compra compra, MetodoPago metodo) {
+    if (metodo == null) {
+        System.out.println("Error: No se proporcionó un método de pago válido.");
+        return;
     }
+
+    double precio = boleto.calcularPrecio();
+    if (montoPagado >= precio) {
+        String estadoCompra = "Comprado con " + metodo.getNombre();
+        compra.actualizarEstado(estadoCompra);
+        System.out.println("Boleto vendido exitosamente.");
+
+        double cambio = montoPagado - precio;
+        if (cambio > 0) {
+            System.out.println("Cambio: " + cambio);
+        }
+    } else {
+        System.out.println("Fondos insuficientes para comprar el boleto.");
+    }
+}
+
 }
