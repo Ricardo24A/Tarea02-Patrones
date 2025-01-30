@@ -1,6 +1,7 @@
 package PatronSingleton;
 
 import PatronFactoryMethod.Boleto;
+import Refactoring.ReservaDatos;
 
 public class TicketManager {
     private static TicketManager instance;
@@ -15,10 +16,14 @@ public class TicketManager {
         return instance;
     }
 
-    public void reservarBoleto(Boleto boleto, String metodoPago) {
-        System.out.println("Boleto reservado con " + metodoPago);
-        System.out.println("Detalles del boleto: " + boleto.obtenerDetalles());
-    }
+    public void reservarBoleto(ReservaDatos datos) {
+    MetodoPago metodo = MetodoPago.parseOpcion(datos.getMetodoPago());
+    String estadoCompra = "Reservado con " + metodo.getNombre();
+    
+    // Lógica de reserva
+    datos.getCompra().actualizarEstado(estadoCompra);
+}
+
 
     public void venderBoleto(Boleto boleto, double montoPagado) {
         if (montoPagado >= boleto.calcularPrecio()) {

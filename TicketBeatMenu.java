@@ -7,6 +7,7 @@ import PatronChainOfResponsability.*;
 import PatronFactoryMethod.*;
 import PatronObserver.*;
 import PatronSingleton.*;
+import Refactoring.ReservaDatos;
 
 public class TicketBeatMenu {
 
@@ -52,7 +53,7 @@ public class TicketBeatMenu {
                     if (boletoSeleccionado == null) {
                         System.out.println("No hay boleto seleccionado.");
                     } else {
-                        reservarBoleto(scanner, manager, compra, boletoSeleccionado);
+                        ReservaDatos.reservarBoleto(scanner, manager);
                     }
                     break;
                 case 5:
@@ -159,19 +160,8 @@ public class TicketBeatMenu {
         return null;
     }
 
-    private void reservarBoleto(Scanner scanner, TicketManager manager, Compra compra, Boleto boleto) {
-        System.out.println("1. Tarjeta de Credito");
-        System.out.println("2. PayPal");
-        System.out.println("3. Transferencia");
-        System.out.print("Metodo de pago para reservar: ");
-        int mp = leerEntero(scanner);
-        scanner.nextLine();
+    
 
-        MetodoPago metodo = MetodoPago.parseOpcion(mp);
-        manager.reservarBoleto(boleto, metodo.getNombre());
-        String estadoCompra = "Reservado con " + metodo.getNombre();
-        compra.actualizarEstado(estadoCompra);
-    }
 
     private void pagarBoleto(Scanner scanner, TicketManager manager, Compra compra, Boleto boleto) {
         System.out.println("Seleccione método de pago:");
